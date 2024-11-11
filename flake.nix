@@ -15,19 +15,21 @@
     devShells = {
       default = pkgs.mkShell {
         name = "namirs";
-        packages = with pkgs; [ clang ];
+        packages = with pkgs; [ clang cmake ];
       };
     };
 
     
-    packages.default = pkgs.stdenv.mkDerivation (finalAttrs: {
+    defaultPackage = pkgs.stdenv.mkDerivation (finalAttrs: {
         pname = "namirs";
         version = "0.0.1";
         src = ./.;
 
+        nativeBuildInputs = with pkgs; [ clang cmake tree ];
+
         installPhase = ''
           mkdir -p $out/bin
-          cp -r bin $out
+          cp bin/namirs $out/bin
         '';
 
     });
