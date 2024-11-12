@@ -1,0 +1,10 @@
+[sno]
+type = "INT"
+
+[experiance]
+type = "INT"
+range = [2, 10]
+
+[salary]
+type = "INT"
+range = [5_00_000, 50_00_000]

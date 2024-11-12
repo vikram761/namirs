@@ -25,7 +25,7 @@
         version = "0.0.1";
         src = ./.;
 
-        nativeBuildInputs = with pkgs; [ clang cmake tree ];
+        nativeBuildInputs = with pkgs; [ clang cmake ];
 
         installPhase = ''
           mkdir -p $out/bin
