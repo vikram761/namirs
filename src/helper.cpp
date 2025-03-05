@@ -1,4 +1,5 @@
 #include "data_table.h"
+#include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -25,24 +26,24 @@ void print_help() {
 
 };
 
-Table parse_csv() {
+Table* parse_csv() {
   using namespace std;
-  ifstream input_file("./simple_linreg_salary.csv");
+  ifstream input_file("../simple_linreg_salary.csv");
 
   string line; 
   getline(input_file, line);
 
-  unordered_map<string, int> headers;
+ vector<string> headers;
 
-  int prv = 0, current_index = 0;
+  int prv = 0;
   for (int i = 0; i <= line.size(); ++i) {
     if (i == line.size() || line[i] == ',') {
-      headers[line.substr(prv, i - prv)] = current_index++;
+      headers.push_back(line.substr(prv, i - prv));
       prv = i + 1;
     };
   };
 
-  vector<vector<float>> table(headers.size(), vector<float>(1, 0));
+  vector<vector<float>> table(headers.size(), vector<float>(0, 0));
   while (input_file.good()) {
 
     getline(input_file, line);
@@ -61,5 +62,5 @@ Table parse_csv() {
 
 
 
-  return Table(headers, table);
+  return new Table(headers, table);
 };
