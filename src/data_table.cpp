@@ -2,17 +2,16 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <stdexcept>
 #include <utility>
 
 Table::Table() { std::srand(time(0)); };
 
-Table::Table(std::vector<std::string> new_header, std::vector<std::vector<float>> new_data) {
+Table::Table(std::vector<std::string> new_header, std::vector<std::vector<float>> new_data) : Table() {
   this->header = new_header;
   this->data = new_data;
-  this->rows_ = new_data[0].size();
+  this->rows_ = data.empty() ? 0 : new_data[0].size();
   this->columns_ = new_header.size();
-
-  std::srand(time(0));
 };
 
 std::vector<float> Table::sum() {
@@ -31,17 +30,19 @@ void Table::print() {
   for (const auto key: this->header) std::cout << key << " ";
   std::cout << std::endl;
 
- for (int i = 0; i < this->data[0].size(); ++i) {
-   for (int j = 0; j < this->data.size(); ++j) {
-     std::cout << this->data[j][i] << " ";
-   };
-   std::cout << std::endl;
- };
+  for (int i = 0; i < this->data[0].size(); ++i) {
+    for (int j = 0; j < this->data.size(); ++j) {
+      std::cout << this->data[j][i] << " ";
+    };
+    std::cout << std::endl;
+  };
 
 };
 
 std::pair<std::vector<float>, float> Table::sample_random_point() {
-  
+  if(rows_ == 0) 
+    throw std::runtime_error("Cannot sample from an empty table.");
+
   int random_number = std::rand() % rows_;
 
   std::vector<float> input;

@@ -8,6 +8,7 @@ set(SOURCES
   src/helper.cpp
   src/train.cpp
   src/data_table.cpp
+  src/sgd_regressor.cpp
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "helper.h"
 
 void print_help() {
   std::cout.fill(' ');
@@ -26,7 +27,7 @@ void print_help() {
 
 };
 
-Table* parse_csv() {
+std::shared_ptr<Table> parse_csv() {
   using namespace std;
   ifstream input_file("../simple_linreg_salary.csv");
 
@@ -60,7 +61,5 @@ Table* parse_csv() {
 
   };
 
-
-
-  return new Table(headers, table);
+  return make_shared<Table>(headers, table);
 };

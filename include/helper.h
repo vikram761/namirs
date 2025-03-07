@@ -1,7 +1,8 @@
 #pragma once
 
 #include "data_table.h"
+#include <memory>
 
 void print_help();
-Table* parse_csv();
+std::shared_ptr<Table> parse_csv();
 
